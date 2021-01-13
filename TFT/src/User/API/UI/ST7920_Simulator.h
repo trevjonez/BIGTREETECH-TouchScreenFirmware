@@ -204,6 +204,7 @@ typedef struct {
   uint8_t            cgram;
   ST7920_DATA_TYPE   data_type;
   ST7920_CTRL_STATUS ctrl_status;
+  uint8_t g;
 }ST7920_REG; // Extended Instruction
 
 void ST7920_ParseRecv(uint8_t val);

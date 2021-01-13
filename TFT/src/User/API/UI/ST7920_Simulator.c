@@ -29,6 +29,7 @@ ST7920_REG st7920_reg = {
   .cgram = 0,
   .data_type = ST7920_DATA_DDRAM,
   .ctrl_status = ST7920_IDLE,
+  .g = 0
 };
 
 const float st7920_gx_start_full = ST7920_GXSTART_FULLSCREEN;
@@ -80,7 +81,7 @@ void ST7920_DrawCharPixel(int16_t sx, int16_t sy, int16_t x, int16_t y, bool isF
 // Display graphic
 void ST7920_DrawGDRAM(uint8_t data)
 {
-  if (st7920_reg.fs.g != 1) return; // Graphic display off
+  if (st7920_reg.g != 2) return; // Graphic display off
   for (uint8_t i = 0; i < 8; i++) {
     if (data & 0x80)
       ST7920_DrawPixel(st7920.x, st7920.y, true);
@@ -164,6 +165,7 @@ void ST7920_DispHCGROM(uint8_t p)
 // cmd : 1 << 5
 void ST7920_CI15_FunctionSet(uint8_t cmd)
 {
+  if (cmd & (1 << 2)) st7920_reg.g = cmd & (1 << 1);
   st7920_reg.fs.reg = cmd;
 }
 
