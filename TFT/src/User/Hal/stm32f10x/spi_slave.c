@@ -66,7 +66,7 @@ void SPI_Slave(CIRCULAR_QUEUE *queue)
 
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2,ENABLE);
   SPI_Slave_CS_Config();
-  SPI_ReEnable(0); // spi mode0
+  SPI_ReEnable(1); // spi mode1
 
   if ((GPIOB->IDR & (1<<12)) != 0)
   {
@@ -153,7 +153,7 @@ void EXTI15_10_IRQHandler(void)
     case LCD12864:
       if((GPIOB->IDR & (1<<12)) != 0)
       {
-        SPI_ReEnable(!!(GPIOB->IDR & (1<<13)));                      // Adaptive spi mode0 / mode3
+        SPI_ReEnable(1);
         ST7920_SPI_NUM->CR1 |= (1<<6);
       }
       else

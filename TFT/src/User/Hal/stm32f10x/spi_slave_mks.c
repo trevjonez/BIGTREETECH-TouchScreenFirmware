@@ -71,7 +71,7 @@ void SPI_Slave(CIRCULAR_QUEUE *queue)
   SPI_Slave_CS_Config();                                             // not needed, you can also comment out this line!
 #endif
 
-  SPI_ReEnable(0);  // spi mode0
+  SPI_ReEnable(1);  // spi mode1
 
 //  if ((GPIOB->IDR & (1<<12)) != 0)                                 // always leave this line commented out!
   {
@@ -146,7 +146,7 @@ void EXTI1_IRQHandler(void)
 {
   if ((GPIOB->IDR & (1<<1)) != 0)
   {
-    SPI_ReEnable(!!(GPIOB->IDR & (1<<13)));                          // Adaptive spi mode0 / mode3
+    SPI_ReEnable(1);
     ST7920_SPI_NUM->CR1 |= (1<<6);
   }
   else
